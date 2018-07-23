@@ -2,22 +2,28 @@ package com.yifeng.data;
 
 import org.apache.flink.api.common.serialization.DeserializationSchema;
 import org.apache.flink.api.common.serialization.SerializationSchema;
+import org.apache.flink.api.common.typeinfo.TypeHint;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 /**
  * Created by guoyifeng on 7/22/18
  */
 public class DataPointSerializationSchema implements SerializationSchema<KeyedDataPoint<Double>> , DeserializationSchema<KeyedDataPoint<Double>> {
 
-    public byte[] serialize(KeyedDataPoint<Double> doubleKeyedDataPoint) {
-        return new byte[0];
+    public byte[] serialize(KeyedDataPoint<Double> dataPoint) {
+        String s = dataPoint.getTimeStampMs() + "," + dataPoint.getKey() + "," + dataPoint.getValue();
+        return s.getBytes();
     }
 
     public KeyedDataPoint<Double> deserialize(byte[] bytes) throws IOException {
-        return null;
+        String s = new String(bytes);
+        String[] tokens = s.split(",");
+        long timeStampMs = Long.parseLong(tokens[0]);
+        String key = tokens[1];
+        double value = Double.parseDouble(tokens[2]);
+        return new KeyedDataPoint<Double>(timeStampMs, key, value);
     }
 
     public boolean isEndOfStream(KeyedDataPoint<Double> doubleKeyedDataPoint) {
@@ -25,6 +31,6 @@ public class DataPointSerializationSchema implements SerializationSchema<KeyedDa
     }
 
     public TypeInformation<KeyedDataPoint<Double>> getProducedType() {
-        return null;
+        return TypeInformation.of(new TypeHint<KeyedDataPoint<Double>>() {});
     }
 }
