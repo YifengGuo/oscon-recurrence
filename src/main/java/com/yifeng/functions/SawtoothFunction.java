@@ -38,6 +38,9 @@ public class SawtoothFunction extends RichMapFunction<DataPoint<Long>, DataPoint
      *     the result would be like: 0.0 0.3333333333333333 0.6666666666666666
      *                               0.0 0.3333333333333333 0.6666666666666666
      *                               0.0 0.3333333333333333 0.6666666666666666 0.0 ...
+     *
+     *         if numSteps == 10:
+     *     the result would be like: 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.0...
      * @param dataPoint
      * @return
      * @throws Exception
