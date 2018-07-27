@@ -44,7 +44,7 @@ public class TimestampSource extends RichSourceFunction<DataPoint<Long>> impleme
                 // To assign a timestamp to an element in the source directly, the source must use the
                 // collectWithTimestamp(...) method on the SourceContext.
                 // To generate watermarks, the source must call the emitWatermark(Watermark) function.
-                ctx.collectWithTimestamp(new DataPoint<Long>(currentTimeMs, 0L), currentTimeMs);
+                ctx.collectWithTimestamp(new DataPoint<>(currentTimeMs, 0L), currentTimeMs);
                 ctx.emitWatermark(new Watermark(currentTimeMs));
                 currentTimeMs += periodMs;
             }

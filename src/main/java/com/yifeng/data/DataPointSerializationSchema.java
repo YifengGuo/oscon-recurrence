@@ -23,7 +23,7 @@ public class DataPointSerializationSchema implements SerializationSchema<KeyedDa
         long timeStampMs = Long.parseLong(tokens[0]);
         String key = tokens[1];
         double value = Double.parseDouble(tokens[2]);
-        return new KeyedDataPoint<Double>(timeStampMs, key, value);
+        return new KeyedDataPoint<Double>(key, timeStampMs, value);
     }
 
     public boolean isEndOfStream(KeyedDataPoint<Double> doubleKeyedDataPoint) {

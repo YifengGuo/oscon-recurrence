@@ -6,16 +6,14 @@ package com.yifeng.data;
 // must extends from DataPoint<T> instead DataPoint
 // otherwise the method has same name with super class will have exceptions if not declare generic
 public class KeyedDataPoint<T> extends DataPoint<T> {
-    private long timeStampMs;
     private String key;
-    private T value;
 
     public KeyedDataPoint() {
         super();
         this.key = null;
     }
 
-    public KeyedDataPoint(long timeStampMs, String key, T value) {
+    public KeyedDataPoint(String key, long timeStampMs, T value) {
         super(timeStampMs, value);
         this.key = key;
     }
@@ -40,6 +38,6 @@ public class KeyedDataPoint<T> extends DataPoint<T> {
      * @return
      */
     public <R> KeyedDataPoint<R> withNewValue(R newValue) {
-        return new KeyedDataPoint<R>(this.getTimeStampMs(), this.getKey(), newValue);
+        return new KeyedDataPoint<R>(this.getKey(), this.getTimeStampMs(), newValue);
     }
 }

@@ -42,11 +42,11 @@ public class DataPoint<T> {
      * @return
      */
     public <R> DataPoint<R> withNewValue(R newValue) {
-        return new DataPoint<R>(this.getTimeStampMs(), newValue);
+        return new DataPoint<>(this.getTimeStampMs(), newValue);
     }
 
     public <R> KeyedDataPoint<R> withNewKeyAndValue(String key, R newValue) {
-        return new KeyedDataPoint<R>(this.getTimeStampMs(), key, newValue);
+        return new KeyedDataPoint<>(key, this.getTimeStampMs(), newValue);
     }
 
     /**
@@ -55,6 +55,11 @@ public class DataPoint<T> {
      * @return
      */
     public KeyedDataPoint withNewKey(String newKey) {
-        return new KeyedDataPoint(this.getTimeStampMs(), newKey, this.getValue());
+        return new KeyedDataPoint(newKey, this.getTimeStampMs(), this.getValue());
+    }
+
+    @Override
+    public String toString() {
+        return "DataPoint(timestamp=" + timeStampMs + ", value=" + value + ")";
     }
 }
